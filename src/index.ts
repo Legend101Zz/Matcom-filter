@@ -400,14 +400,14 @@ function render(): void {
 
   // Draw the ThreeJS scene in the usual way, but using the Zappar camera
   renderer.render(scene, camera);
-  if (EvilMonster) {
-    // Update EvilMonster properties
-    // Adjust rotation speed
-    EvilMonster.rotation.y += Math.random() * rotationSpeedFactor;
+  // if (EvilMonster) {
+  //   // Update EvilMonster properties
+  //   // Adjust rotation speed
+  //   EvilMonster.rotation.y += Math.random() * rotationSpeedFactor;
 
-    // Adjust position speed
-    EvilMonster.position.y = 2 * Math.sin(Math.random()) * positionSpeedFactor;
-  }
+  //   // Adjust position speed
+  //   EvilMonster.position.y = 2 * Math.sin(Math.random()) * positionSpeedFactor;
+  // }
   // Update particle positions
   particles.forEach((particle: any) => {
     particle.position.y -= 0.008; // Adjust falling speed
