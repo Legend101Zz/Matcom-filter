@@ -14,11 +14,20 @@ const evilMonsterModel = new URL(
   "../assets/evil_squid_sci-fi_monster.glb",
   import.meta.url
 ).href;
-const monkeyOneModel = new URL("../assets/emoji_13.glb", import.meta.url).href;
-const monkeyTwoModel = new URL("../assets/emoji_15.glb", import.meta.url).href;
-const monkeyThreeModel = new URL("../assets/emoji_14.glb", import.meta.url)
-  .href;
-const matrixImg = new URL("../assets/matrix.png", import.meta.url).href;
+
+const monkeyOneModel = new URL(
+  "../assets/neon_party_glasses.glb",
+  import.meta.url
+).href;
+const monkeyTwoModel = new URL(
+  "../assets/oculus_quest_vr_headset.glb",
+  import.meta.url
+).href;
+const monkeyThreeModel = new URL(
+  "../assets/steampunk_glasses_free.glb",
+  import.meta.url
+).href;
+const matrixImg = new URL("../assets/0.png", import.meta.url).href;
 
 import "./index.css";
 // The SDK is supported on many different browsers, but there are some that
@@ -141,6 +150,28 @@ scene.add(faceTrackerGroup0, faceTrackerGroup1, faceTrackerGroup2);
 // Pass our loading manager in to ensure the progress bar works correctly
 const gltfLoader = new GLTFLoader(manager);
 
+// tree
+// let treeM: THREE.Object3D;
+// gltfLoader.load(
+//   tree,
+//   (gltf) => {
+//     // Assign model data into the established variable
+//     // so we can use it later...
+//     treeM = gltf.scene;
+
+//     // Position the loaded content to overlay user's face
+//     treeM.position.set(1.5, -4.2, -8);
+//     treeM.scale.set(0.2, 0.2, 0.2);
+
+//     // Add the scene to the first tracker group
+//     scene.add(treeM);
+//   },
+//   undefined,
+//   () => {
+//     console.log("An error ocurred loading the EvilMonster GLTF model");
+//   }
+// );
+
 // Evil Monster
 let EvilMonster: THREE.Object3D;
 gltfLoader.load(
@@ -151,7 +182,7 @@ gltfLoader.load(
     EvilMonster = gltf.scene;
 
     // Position the loaded content to overlay user's face
-    EvilMonster.position.set(-1.5, 0, -8);
+    EvilMonster.position.set(-1.5, 2, -8);
     EvilMonster.scale.set(7, 7, 7);
 
     // Add the scene to the first tracker group
@@ -173,8 +204,10 @@ gltfLoader.load(
     monkeyOne = gltf.scene;
 
     // Position the loaded content to overlay user's face
-    monkeyOne.position.set(0, 0.1, 0);
-    monkeyOne.scale.set(38, 38, 38);
+    monkeyOne.position.set(0, 0.15, 0);
+    // monkeyOne.rotation.y = Math.PI;
+    // monkeyOne.rotation.x = Math.PI / 10;
+    monkeyOne.scale.set(0.003, 0.003, 0.003);
 
     // Prevent model from being visible at start
     monkeyOne.visible = false;
@@ -199,7 +232,7 @@ gltfLoader.load(
 
     // Position the loaded content to overlay user's face
     monkeyTwo.position.set(0, 0.1, 0);
-    monkeyTwo.scale.set(38, 38, 38);
+    monkeyTwo.scale.set(8, 8, 8);
 
     // Prevent model from being visible at start
     monkeyTwo.visible = false;
@@ -223,8 +256,10 @@ gltfLoader.load(
     monkeyThree = gltf.scene;
 
     // Position the loaded content to overlay user's face
-    monkeyThree.position.set(0, 0.1, 0);
-    monkeyThree.scale.set(38, 38, 38);
+    monkeyThree.position.set(0, 0.15, 0);
+    // monkeyOne.rotation.y = Math.PI;
+    monkeyThree.rotation.x = Math.PI / 10;
+    monkeyThree.scale.set(1, 1, 1);
 
     // Prevent model from being visible at start
     monkeyThree.visible = false;
@@ -240,11 +275,37 @@ gltfLoader.load(
 
 // ========= ADDING PLANES =========
 
+// Create a video element reference
+// const videoElement = document.getElementById("video") as HTMLVideoElement;
+
+// // Create a texture from the video element
+// const videoTexture = new THREE.VideoTexture(videoElement);
+// videoTexture.minFilter = THREE.LinearFilter;
+// videoTexture.magFilter = THREE.LinearFilter;
+// videoTexture.format = THREE.RGBAFormat;
+
+// Create a plane geometry to use as a screen for the video
+// const videoGeometry = new THREE.PlaneGeometry(6.4, 3.6); // Use appropriate dimensions
+// const videoMaterial = new THREE.MeshBasicMaterial({
+//   map: videoTexture,
+//   side: THREE.DoubleSide,
+//   transparent: true,
+//   opacity: 0.5,
+// });
+// const videoScreen = new THREE.Mesh(videoGeometry, videoMaterial);
+// videoScreen.position.set(0, 0, -10); // Adjust the position as needed
+
+// // Add the video screen to the scene
+// scene.add(videoScreen);
+
+// // Play the video
+// videoElement.play();
+
 // Create a red material with transparency
 const material = new THREE.MeshBasicMaterial({
   color: 0xff0000, // Red color
   transparent: true,
-  opacity: 0.5, // Set opacity to make it transparent
+  opacity: 0.3, // Set opacity to make it transparent
 });
 
 // Create a plane geometry
@@ -262,7 +323,7 @@ scene.add(plane);
 const material2 = new THREE.MeshBasicMaterial({
   color: 0x0000ff, // Red color
   transparent: true,
-  opacity: 0.5, // Set opacity to make it transparent
+  opacity: 0.3, // Set opacity to make it transparent
 });
 
 // Create a mesh with the geometry and material
@@ -275,7 +336,7 @@ scene.add(plane2);
 
 // ========= Create particles=========
 const particles: any = [];
-const particleCount = 10000;
+const particleCount = 5000;
 
 // Load binary texture
 const textureLoader = new THREE.TextureLoader();
@@ -389,8 +450,9 @@ faceTracker.onNotVisible.bind((anchor) => {
     }
   }
 });
+
 // Set a speed factor for the EvilMonster rotation and position updates
-const rotationSpeedFactor = 0.01;
+const rotationSpeedFactor = 0.02;
 const positionSpeedFactor = 0.1;
 
 // Use a function to render our scene as usual
@@ -400,14 +462,14 @@ function render(): void {
 
   // Draw the ThreeJS scene in the usual way, but using the Zappar camera
   renderer.render(scene, camera);
-  // if (EvilMonster) {
-  //   // Update EvilMonster properties
-  //   // Adjust rotation speed
-  //   EvilMonster.rotation.y += Math.random() * rotationSpeedFactor;
-
-  //   // Adjust position speed
-  //   EvilMonster.position.y = 2 * Math.sin(Math.random()) * positionSpeedFactor;
-  // }
+  if (EvilMonster) {
+    //   // Update EvilMonster properties
+    //   // Adjust rotation speed
+    EvilMonster.rotation.y += Math.random() * rotationSpeedFactor;
+    EvilMonster.rotation.x += Math.random() * rotationSpeedFactor;
+    //   // Adjust position speed
+    //   EvilMonster.position.y = 2 * Math.sin(Math.random()) * positionSpeedFactor;
+  }
   // Update particle positions
   particles.forEach((particle: any) => {
     particle.position.y -= 0.008; // Adjust falling speed
